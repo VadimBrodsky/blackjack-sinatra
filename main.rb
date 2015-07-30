@@ -6,3 +6,7 @@ require 'sinatra'
 use Rack::Session::Cookie, :key => 'rack.session',
                            :path => '/',
                            :secret => 'the_secret_of_secrets'
+
+get '/' do
+  'Hello World'
+end
