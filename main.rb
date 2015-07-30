@@ -8,5 +8,5 @@ use Rack::Session::Cookie, :key => 'rack.session',
                            :secret => 'the_secret_of_secrets'
 
 get '/' do
-  'Hello World'
+  'Hello World!'
 end
