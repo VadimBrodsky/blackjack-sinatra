@@ -10,3 +10,21 @@ use Rack::Session::Cookie, :key => 'rack.session',
 get '/' do
   'Hello World!'
 end
+
+# Examples of Sinatra Responses
+
+get '/inline' do
+  "Response, directly from a Sinatra action"
+end
+
+get '/template' do
+  erb :mytemplate
+end
+
+get '/nested_template' do
+  ebr :'/users/profile'
+end
+
+get '/nothere' do
+  redirect '/inline'
+end
