@@ -5,4 +5,4 @@ require 'sinatra'
 
 use Rack::Session::Cookie, :key => 'rack.session',
                            :path => '/',
-                           :secret => 'your_secret'
+                           :secret => 'the_secret_of_secrets'
