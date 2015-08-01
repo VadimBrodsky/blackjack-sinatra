@@ -8,7 +8,7 @@ use Rack::Session::Cookie, :key => 'rack.session',
                            :secret => 'the_secret_of_secrets'
 
 get '/' do
-  'Hello World!'
+  erb :home
 end
 
 # Examples of Sinatra Responses

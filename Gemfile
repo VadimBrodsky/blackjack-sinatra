@@ -7,4 +7,5 @@ gem 'pry'
 
 group :develpment do
   gem 'shotgun'
+  gem 'compass'
 end
