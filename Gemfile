@@ -12,4 +12,6 @@ end
 group :develpment do
   gem 'shotgun'
   gem 'compass'
+  gem 'rake'
+  gem 'rubocop'
 end
