@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'sinatra'
 
-
 # set :sessions, true
 use Rack::Session::Cookie, :key => 'rack.session',
                            :path => '/',
@@ -27,22 +26,4 @@ end
 
 get '/player/new/?' do
   'new player'
-end
-
-# Examples of Sinatra Responses
-
-get '/inline' do
-  "Response, directly from a Sinatra action"
-end
-
-get '/template' do
-  erb :mytemplate
-end
-
-get '/nested_template' do
-  ebr :'/users/profile'
-end
-
-get '/nothere' do
-  redirect '/inline'
 end
