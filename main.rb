@@ -7,7 +7,7 @@ use Rack::Session::Cookie, key: 'rack.session',
                            secret: 'the_secret_of_secrets'
 
 module PlayerHelpers
-  def logged_in?
+  def player_known?
     !session[:player_name].nil?
   end
 end
@@ -19,8 +19,11 @@ get '/' do
 end
 
 get '/game/new/?' do
-  'new game'
-  logged_in?.to_s
+  if player_known?
+    'play game'
+  else
+    redirect '/player/new'
+  end
 end
 
 get '/player/new/?' do
