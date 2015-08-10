@@ -26,6 +26,16 @@ get '/game/new/?' do
   end
 end
 
+get '/player/?' do
+  "Howdy #{session[:player_name]}"
+end
+
 get '/player/new/?' do
   'new player'
+  erb :'player/new'
+end
+
+post '/player' do
+  session[:player_name] = params[:name]
+  redirect to('/player')
 end
