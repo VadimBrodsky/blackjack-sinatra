@@ -5,7 +5,17 @@
 <h3><%= @player_name %>'s Cards</h3>
 
 <h3>Deck</h3>
-<ul>
-  <li><%= @deck.methods %></li>
-  <li><%= @deck.inspect %></li>
-</ul>
+
+<pre>
+  JSON: <%= @deck.__id__ %>
+  <%= @deck.to_json %>
+
+  Ruby Array:
+  <%= @deck %>
+</pre>
+
+<pre>
+  <% d2 = Deck.new(JSON.parse(@deck.to_json)).cards %>
+  Ruby Array, from JSON data: <%= d2.__id__ %>
+  <%= d2 %>
+</pre>
