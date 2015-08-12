@@ -13,10 +13,10 @@ class Player
   end
 
   def save_to_session
-    session[:player] = {name: name, money: money, bet: bet}.to_json
+    {name: name, money: money, bet: bet}.to_json
   end
 
-  def load_from_session(json: session_json)
+  def load_from_session(session_json)
     data = JSON.parse(session_json)
     self.name = data['name']
     self.money = data['money']

@@ -6,13 +6,13 @@ require_relative 'lib/deck'
 require_relative 'lib/player'
 
 # set :sessions, true
-use Rack::Session::Cookie, key: 'rack.session',
+use Rack::Session::Cookie, key: 'blackjack',
                            path: '/',
                            secret: 'the_secret_of_secrets'
 
 module PlayerHelpers
   def player_known?
-    !session[:player_name].nil?
+    !session[:player].nil?
   end
 end
 
@@ -25,7 +25,7 @@ end
 
 get '/game/new/?' do
   if player_known?
-    @player_name = session[:player_name]
+    @player = Player.new.load_from_session(session[:player])
     @deck = Deck.new
     session[:deck] = @deck.to_json
     erb :'game/new'
@@ -48,6 +48,11 @@ get '/player/new/?' do
 end
 
 post '/player' do
-  session[:player_name] = params[:player_name]
+  session[:player] = Player.new(name: params[:player_name]).save_to_session
   redirect to('/player')
+end
+
+get '/session' do
+  session[:session_id]
+  session.inspect.to_s
 end
