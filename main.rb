@@ -3,6 +3,7 @@ require 'sinatra'
 require 'json'
 
 require_relative 'lib/deck'
+require_relative 'lib/player'
 
 # set :sessions, true
 use Rack::Session::Cookie, key: 'rack.session',
