@@ -14,6 +14,14 @@ module PlayerHelpers
   def player_known?
     !session[:player].nil?
   end
+
+  def load_player
+    Player.new.load_from_session(session[:player])
+  end
+
+  def save_player
+    session[:player] = @player.save_to_session
+  end
 end
 
 
@@ -25,7 +33,7 @@ end
 
 get '/game/new/?' do
   if player_known?
-    @player = Player.new.load_from_session(session[:player])
+    @player = load_player
     @deck = Deck.new
     session[:deck] = @deck.to_json
     erb :'game/new'
@@ -39,20 +47,20 @@ get '/game/?' do
 end
 
 get '/player/?' do
-  "Howdy #{session[:player_name]}"
+  @player = load_player
+  "Howdy #{@player.name}"
 end
 
 get '/player/new/?' do
-  'new player'
   erb :'player/new'
 end
 
 post '/player' do
-  session[:player] = Player.new(name: params[:player_name]).save_to_session
+  @player = Player.new(name: params[:player_name])
+  save_player
   redirect to('/player')
 end
 
 get '/session' do
-  session[:session_id]
   session.inspect.to_s
 end
