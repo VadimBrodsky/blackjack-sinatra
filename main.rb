@@ -47,8 +47,12 @@ get '/game/?' do
 end
 
 get '/player/?' do
-  @player = load_player
-  "Howdy #{@player.name}"
+  if player_known?
+    @player = load_player
+    erb :'player/player'
+  else
+    redirect 'player/new'
+  end
 end
 
 get '/player/new/?' do
@@ -59,6 +63,11 @@ post '/player' do
   @player = Player.new(name: params[:player_name])
   save_player
   redirect to('/player')
+end
+
+delete '/player' do
+  session.clear
+  redirect to('/')
 end
 
 get '/session' do
