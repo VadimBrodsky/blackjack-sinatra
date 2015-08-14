@@ -7,7 +7,7 @@
 
 <h3><%= @player.name %>'s Cards</h3>
 <ol>
-  <% @player.cards.each do |card| %>
+  <% @player.hand.each do |card| %>
   <li><%= card %></li>
   <% end %>
 </ol>

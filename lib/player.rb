@@ -15,7 +15,7 @@ class Player
   end
 
   def save_to_session
-    {name: name, money: money, bet: bet, cards: cards}.to_json
+    {name: name, money: money, bet: bet, hand: cards}.to_json
   end
 
   def load_from_session(session_json)
@@ -33,5 +33,9 @@ class Player
   def hand=(card)
     @cards << card
     @cards.flatten!(1)
+  end
+
+  def hand
+    @cards
   end
 end
