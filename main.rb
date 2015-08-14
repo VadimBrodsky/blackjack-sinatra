@@ -22,7 +22,9 @@ module PlayerHelpers
   end
 
   def load_player
-    Player.new.load_from_session(session[:player])
+    if player_known?
+      Player.new.load_from_session(session[:player])
+    end
   end
 
   def save_player
@@ -34,15 +36,25 @@ end
 helpers PlayerHelpers
 
 get '/' do
+  @player = load_player
   erb :home
 end
 
 get '/game/new/?' do
   protected!
   @player = load_player
-  @deck = Deck.new
-  session[:deck] = @deck.to_json
-  erb :'game/new'
+  if @player.bet <= 0
+    redirect to('/game/bet/new')
+  else
+    @deck = Deck.new
+    session[:deck] = @deck.to_json
+    erb :'game/new'
+  end
+end
+
+get '/game/bet/new/?' do
+  protected!
+
 end
 
 get '/game/?' do
