@@ -15,6 +15,12 @@ module PlayerHelpers
     !session[:player].nil?
   end
 
+  def protected!
+    unless player_known?
+      redirect to('/player/new')
+    end
+  end
+
   def load_player
     Player.new.load_from_session(session[:player])
   end
@@ -32,14 +38,11 @@ get '/' do
 end
 
 get '/game/new/?' do
-  if player_known?
-    @player = load_player
-    @deck = Deck.new
-    session[:deck] = @deck.to_json
-    erb :'game/new'
-  else
-    redirect '/player/new'
-  end
+  protected!
+  @player = load_player
+  @deck = Deck.new
+  session[:deck] = @deck.to_json
+  erb :'game/new'
 end
 
 get '/game/?' do
@@ -47,12 +50,9 @@ get '/game/?' do
 end
 
 get '/player/?' do
-  if player_known?
-    @player = load_player
-    erb :'player/player'
-  else
-    redirect 'player/new'
-  end
+  protected!
+  @player = load_player
+  erb :'player/player'
 end
 
 get '/player/new/?' do
@@ -71,5 +71,6 @@ delete '/player' do
 end
 
 get '/session' do
+  session[:player]
   session.inspect.to_s
 end
