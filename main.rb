@@ -54,7 +54,21 @@ end
 
 get '/game/bet/new/?' do
   protected!
+  @player = load_player
+  erb :'game/bet/new'
+end
 
+post '/game/bet' do
+  protected!
+  @player = load_player
+  bet = params[:bet].to_i
+  if @player.valid_bet?(bet)
+    @player.bet = bet
+    save_player
+    redirect to 'game/new'
+  else
+    redirect to '/game/bet/new'
+  end
 end
 
 get '/game/?' do

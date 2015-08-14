@@ -23,4 +23,8 @@ class Player
     self.bet = data['bet']
     self
   end
+
+  def valid_bet?(bet)
+    bet > 0 && bet <= money
+  end
 end
