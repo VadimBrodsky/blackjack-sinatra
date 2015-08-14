@@ -30,10 +30,26 @@ module PlayerHelpers
   def save_player
     session[:player] = @player.save_to_session
   end
+
+  def set_bet
+    if @player.bet <= 0
+      redirect to('/game/bet/new')
+    end
+  end
 end
 
+module DeckHelpers
+  def load_deck
+    Deck.new(JSON.parse(session[:deck]))
+  end
+
+  def save_deck
+    session[:deck] = @deck.save_to_session
+  end
+end
 
 helpers PlayerHelpers
+helpers DeckHelpers
 
 get '/' do
   @player = load_player
@@ -41,15 +57,15 @@ get '/' do
 end
 
 get '/game/new/?' do
+  # TODO add condition to redirect to game route if deck is set
   protected!
   @player = load_player
-  if @player.bet <= 0
-    redirect to('/game/bet/new')
-  else
-    @deck = Deck.new
-    session[:deck] = @deck.to_json
-    erb :'game/new'
-  end
+  set_bet
+  @deck = Deck.new
+  @player.hand = @deck.deal(2)
+  save_player
+  save_deck
+  erb :'game/new'
 end
 
 get '/game/bet/new/?' do

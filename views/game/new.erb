@@ -1,21 +1,13 @@
 <!-- <h1>Blackjack</h1> -->
 
 <h3>Dealer's Cards</h3>
+<ol>
+
+</ol>
 
 <h3><%= @player.name %>'s Cards</h3>
-
-<h3>Deck</h3>
-
-<pre>
-  JSON: <%= @deck.__id__ %>
-  <%= @deck.to_json %>
-
-  Ruby Array:
-  <%= @deck %>
-</pre>
-
-<pre>
-  <% d2 = Deck.new(JSON.parse(@deck.to_json)).cards %>
-  Ruby Array, from JSON data: <%= d2.__id__ %>
-  <%= d2 %>
-</pre>
+<ol>
+  <% @player.cards.each do |card| %>
+  <li><%= card %></li>
+  <% end %>
+</ol>

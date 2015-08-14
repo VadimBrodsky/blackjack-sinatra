@@ -18,7 +18,11 @@ class Deck
     cards.to_s
   end
 
-  def to_json
+  def save_to_session
     cards.to_json
+  end
+
+  def deal(num_of_cards = 1)
+    cards.pop(num_of_cards)
   end
 end
