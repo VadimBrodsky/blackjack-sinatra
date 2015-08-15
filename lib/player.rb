@@ -10,7 +10,7 @@ class Player
     self.name = name
     self.money = money
     self.bet = bet
-    @cards = []
+    self.cards = []
   end
 
   def save_to_session

@@ -1,8 +1,10 @@
 <!-- <h1>Blackjack</h1> -->
 
-<h3>Dealer's Cards</h3>
+<h3><%= @dealer.name %>'s Cards</h3>
 <ol>
-
+  <% @dealer.hand.each do |card| %>
+  <li><%= card %></li>
+  <% end %>
 </ol>
 
 <h3><%= @player.name %>'s Cards</h3>

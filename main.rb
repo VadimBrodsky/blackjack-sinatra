@@ -5,7 +5,9 @@ require 'sinatra/flash'
 
 require_relative 'lib/deck'
 require_relative 'lib/player'
+require_relative 'lib/dealer'
 require_relative 'lib/helpers/player_helpers'
+require_relative 'lib/helpers/dealer_helpers'
 require_relative 'lib/helpers/deck_helpers'
 require_relative 'lib/helpers/game_helpers'
 
@@ -17,6 +19,7 @@ use Rack::Session::Cookie, key: 'blackjack',
 helpers PlayerHelpers
 helpers DeckHelpers
 helpers GameHelpers
+helpers DealerHelpers
 
 get '/' do
   @player = load_player
@@ -26,17 +29,15 @@ end
 get '/game/new/?' do
   protected!
   @player = load_player
+  @dealer = Dealer.new
   set_bet
   set_deck
 
-  # TODO: Add dealer
   # TODO: Encapsulate to Helper
   @player.hand = @deck.deal(2)
+  @dealer.hand = @deck.deal(2)
 
-  # TODO: Encapsulate to Helper
-  save_player
-  save_deck
-
+  save_game_state
   redirect to('/game')
 end
 
