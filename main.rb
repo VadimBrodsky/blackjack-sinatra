@@ -103,6 +103,10 @@ get '/game/bet/new/?' do
   erb :'game/bet/new'
 end
 
+get '/game/bet/?' do
+  redirect to('/player')
+end
+
 post '/game/bet' do
   protected!
   @player = load_player

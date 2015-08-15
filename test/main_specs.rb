@@ -82,11 +82,20 @@ describe 'Main Application Interactions' do
       end
 
       describe 'player views the game status page' do
-        it 'should redirect the eplayer to enter a bet' do
+        it 'should redirect the player to enter a bet' do
           get '/game'
           last_response.status.must_equal 302
           follow_redirect!
           last_request.url.must_equal 'http://example.org/game/new'
+        end
+      end
+
+      describe 'player views the bet page' do
+        it 'should redirect the player to enter a bet' do
+          get 'game/bet'
+          last_response.status.must_equal 302
+          follow_redirect!
+          last_request.url.must_equal 'http://example.org/player'
         end
       end
     end
