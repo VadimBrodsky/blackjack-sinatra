@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'json'
+require 'sinatra/flash'
 
 require_relative 'lib/deck'
 require_relative 'lib/player'
