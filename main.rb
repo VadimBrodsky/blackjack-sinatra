@@ -5,64 +5,18 @@ require 'sinatra/flash'
 
 require_relative 'lib/deck'
 require_relative 'lib/player'
+require_relative 'lib/helpers/player_helpers'
+require_relative 'lib/helpers/deck_helpers'
+require_relative 'lib/helpers/game_helpers'
 
 # set :sessions, true
 use Rack::Session::Cookie, key: 'blackjack',
                            path: '/',
                            secret: 'the_secret_of_secrets'
 
-module PlayerHelpers
-  def player_known?
-    !session[:player].nil?
-  end
-
-  def protected!
-    unless player_known?
-      redirect to('/player/new')
-    end
-  end
-
-  def load_player
-    if player_known?
-      Player.new.load_from_session(session[:player])
-    end
-  end
-
-  def save_player
-    session[:player] = @player.save_to_session
-  end
-
-  def set_bet
-    if @player.bet <= 0
-      redirect to('/game/bet/new')
-    end
-  end
-end
-
-module DeckHelpers
-  def deck_set?
-    !session[:deck].nil?
-  end
-
-  def load_deck
-    Deck.new(JSON.parse(session[:deck]))
-  end
-
-  def save_deck
-    session[:deck] = @deck.save_to_session
-  end
-
-  def set_deck
-    if deck_set?
-      redirect to('/game')
-    else
-      @deck = Deck.new
-    end
-  end
-end
-
 helpers PlayerHelpers
 helpers DeckHelpers
+helpers GameHelpers
 
 get '/' do
   @player = load_player
@@ -88,13 +42,10 @@ end
 
 get '/game/?' do
   protected!
-  if player_known? && deck_set?
-    @player = load_player
-    @deck = load_deck
-    erb :'game/game'
-  else
-    redirect to '/game/new'
-  end
+  game_set!
+  @player = load_player
+  @deck = load_deck
+  erb :'game/game'
 end
 
 get '/game/bet/new/?' do
