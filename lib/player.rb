@@ -1,8 +1,7 @@
 require 'json'
 
 class Player
-  attr_accessor :name, :money, :bet
-  attr_reader :cards
+  attr_accessor :name, :money, :bet, :cards
 
   DEFAULT_ALLOWANCE = 500
   DEFAULT_BET = 0
@@ -23,6 +22,7 @@ class Player
     self.name = data['name']
     self.money = data['money']
     self.bet = data['bet']
+    self.hand = data['hand']
     self
   end
 

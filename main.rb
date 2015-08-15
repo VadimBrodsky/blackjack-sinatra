@@ -40,6 +40,10 @@ module PlayerHelpers
 end
 
 module DeckHelpers
+  def deck_set?
+    !session[:deck].nil?
+  end
+
   def load_deck
     Deck.new(JSON.parse(session[:deck]))
   end
@@ -62,11 +66,21 @@ get '/game/new/?' do
   protected!
   @player = load_player
   set_bet
-  @deck = Deck.new
-  @player.hand = @deck.deal(2)
-  save_player
-  save_deck
-  erb :'game/new'
+  if deck_set?
+    redirect to('/game')
+  else
+    @deck = Deck.new
+    @player.hand = @deck.deal(2)
+    save_player
+    save_deck
+    redirect to('/game')
+  end
+end
+
+get '/game/?' do
+  @player = load_player
+  @deck = load_deck
+  erb :'game/game'
 end
 
 get '/game/bet/new/?' do
@@ -86,10 +100,6 @@ post '/game/bet' do
   else
     redirect to '/game/bet/new'
   end
-end
-
-get '/game/?' do
-
 end
 
 get '/player/?' do
