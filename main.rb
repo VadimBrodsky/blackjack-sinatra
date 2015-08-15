@@ -51,6 +51,14 @@ module DeckHelpers
   def save_deck
     session[:deck] = @deck.save_to_session
   end
+
+  def set_deck
+    if deck_set?
+      redirect to('/game')
+    else
+      @deck = Deck.new
+    end
+  end
 end
 
 helpers PlayerHelpers
@@ -62,25 +70,31 @@ get '/' do
 end
 
 get '/game/new/?' do
-  # TODO add condition to redirect to game route if deck is set
   protected!
   @player = load_player
   set_bet
-  if deck_set?
-    redirect to('/game')
-  else
-    @deck = Deck.new
-    @player.hand = @deck.deal(2)
-    save_player
-    save_deck
-    redirect to('/game')
-  end
+  set_deck
+
+  # TODO: Add dealer
+  # TODO: Encapsulate to Helper
+  @player.hand = @deck.deal(2)
+
+  # TODO: Encapsulate to Helper
+  save_player
+  save_deck
+
+  redirect to('/game')
 end
 
 get '/game/?' do
-  @player = load_player
-  @deck = load_deck
-  erb :'game/game'
+  protected!
+  if player_known? && deck_set?
+    @player = load_player
+    @deck = load_deck
+    erb :'game/game'
+  else
+    redirect to '/game/new'
+  end
 end
 
 get '/game/bet/new/?' do
@@ -109,7 +123,11 @@ get '/player/?' do
 end
 
 get '/player/new/?' do
-  erb :'player/new'
+  if player_known?
+    redirect to('/player')
+  else
+    erb :'player/new'
+  end
 end
 
 post '/player' do
