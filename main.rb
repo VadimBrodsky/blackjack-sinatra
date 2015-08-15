@@ -43,8 +43,7 @@ end
 get '/game/?' do
   protected!
   game_set!
-  @player = load_player
-  @deck = load_deck
+  load_game_state
   erb :'game/game'
 end
 
@@ -61,14 +60,8 @@ end
 post '/game/bet' do
   protected!
   @player = load_player
-  bet = params[:bet].to_i
-  if @player.valid_bet?(bet)
-    @player.bet = bet
-    save_player
-    redirect to 'game/new'
-  else
-    redirect to '/game/bet/new'
-  end
+  process_bet(params[:bet].to_i)
+  redirect to 'game/new'
 end
 
 get '/player/?' do
@@ -96,7 +89,10 @@ delete '/player' do
   redirect to('/')
 end
 
-get '/session' do
-  session[:player]
-  session.inspect.to_s
+# Debug only paths
+if settings.development?
+  get '/debug/session' do
+    session[:player]
+    session.inspect.to_s
+  end
 end

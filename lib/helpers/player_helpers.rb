@@ -24,4 +24,13 @@ module PlayerHelpers
       redirect to('/game/bet/new')
     end
   end
+
+  def process_bet(bet)
+    if @player.valid_bet?(bet)
+      @player.bet = bet
+      save_player
+    else
+      redirect to '/game/bet/new'
+    end
+  end
 end

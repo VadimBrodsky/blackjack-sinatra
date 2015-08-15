@@ -4,4 +4,9 @@ module GameHelpers
       redirect to '/game/new'
     end
   end
+
+  def load_game_state
+    @player = load_player
+    @deck = load_deck
+  end
 end
