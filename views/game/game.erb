@@ -3,7 +3,9 @@
 <h3><%= @dealer.name %>'s Cards</h3>
 <ol>
   <% @dealer.hand.each do |card| %>
-  <li><%= card %></li>
+  <li>
+    <%= card.nil? ? '[X,X]' : card %>
+  </li>
   <% end %>
 </ol>
 
