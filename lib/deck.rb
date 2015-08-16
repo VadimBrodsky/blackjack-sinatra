@@ -23,6 +23,6 @@ class Deck
   end
 
   def deal(num_of_cards = 1)
-    cards.pop(num_of_cards)
+    num_of_cards == 1 ? [cards.pop] : cards.pop(num_of_cards)
   end
 end

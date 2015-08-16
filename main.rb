@@ -48,6 +48,25 @@ get '/game/?' do
   erb :'game/game'
 end
 
+post '/game/hit' do
+  protected!
+  game_set!
+  load_game_state
+  @player.hand = @deck.deal
+  save_game_state
+  redirect to('/game')
+end
+
+post '/game/stay' do
+  protected!
+  game_set!
+  load_game_state
+  @player.stand
+  @dealer.open_hand
+  save_game_state
+  redirect to('/game')
+end
+
 get '/game/bet/new/?' do
   protected!
   @player = load_player

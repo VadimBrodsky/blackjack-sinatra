@@ -2,6 +2,7 @@ require 'json'
 
 class Player
   attr_accessor :name, :money, :bet, :cards
+  attr_reader :status
 
   DEFAULT_ALLOWANCE = 500
   DEFAULT_BET = 0
@@ -11,10 +12,11 @@ class Player
     self.money = money
     self.bet = bet
     self.cards = []
+    @status = 'playing'
   end
 
   def save_to_session
-    {name: name, money: money, bet: bet, hand: cards}.to_json
+    {name: name, money: money, bet: bet, hand: cards, status: status}.to_json
   end
 
   def load_from_session(session_json)
@@ -23,6 +25,7 @@ class Player
     self.money = data['money']
     self.bet = data['bet']
     self.hand = data['hand']
+    @status = data['status']
     self
   end
 
@@ -30,12 +33,19 @@ class Player
     bet > 0 && bet <= money
   end
 
-  def hand=(card)
-    @cards << card
-    @cards.flatten!(1)
+  def hand=(cards)
+    cards.each {|card| @cards << card }
   end
 
   def hand
     @cards
+  end
+
+  def playing?
+    status == 'playing'
+  end
+
+  def stand
+    @status = 'stand'
   end
 end

@@ -3,12 +3,12 @@ require 'json'
 
 class Dealer
   attr_accessor :name, :cards
-  attr_reader :hide_card
+  attr_reader :status
 
   def initialize
     self.name = 'Dealer'
     self.cards = []
-    @hide_card = true
+    @status = 'hide card'
   end
 
   def hand=(card)
@@ -25,18 +25,26 @@ class Dealer
   end
 
   def hide_card?
-    @hide_card
+    @status == 'hide card'
+  end
+
+  def open_hand
+    @status = 'playing'
+  end
+
+  def playing?
+    @status == 'playing'
   end
 
   def save_to_session
-    {name: name, hand: cards, hide: @hide_card}.to_json
+    {name: name, hand: cards, status: @status}.to_json
   end
 
   def load_from_session(session_json)
     data = JSON.parse(session_json)
     self.name = data['name']
     self.hand = data['hand']
-    @hide_card = data['hide']
+    @status = data['status']
     self
   end
 end

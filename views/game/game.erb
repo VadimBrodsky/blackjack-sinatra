@@ -9,9 +9,32 @@
   <% end %>
 </ol>
 
+<% if @dealer.playing? %>
+<form class="form-inline" action="/game/dealer" method="post">
+    <button type="submit" class="btn btn-primary">See Dealer's next card</button>
+</form>
+<% end %>
+
 <h3><%= @player.name %>'s Cards</h3>
 <ol>
   <% @player.hand.each do |card| %>
   <li><%= card %></li>
   <% end %>
 </ol>
+
+<% if @player.playing? %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= @player.name %>, choose an action:</h3>
+  </div>
+  <div class="panel-body">
+    <form class="form-inline" action="/game/hit" method="post">
+        <button type="submit" class="btn btn-success">Hit</button>
+    </form>
+
+    <form class="form-inline" action="/game/stay" method="post">
+        <button type="submit" class="btn btn-warning">Stay</button>
+    </form>
+  </div>
+</div>
+<% end %>
