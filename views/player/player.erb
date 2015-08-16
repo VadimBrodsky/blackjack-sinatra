@@ -9,6 +9,10 @@
     <p>
       Current game bet $<%= @player.bet %>.
     </p>
+    <% if @player.bet != 0 %>
     <p><a class="btn btn-primary btn-lg" href="/game/new" role="button">Play Game</a></p>
+    <% else %>
+    <p><a class="btn btn-primary btn-lg" href="/game/bet/new" role="button">Set Bet</a></p>
+    <% end %>
   </div>
 </div>
