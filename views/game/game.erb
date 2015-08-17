@@ -4,7 +4,7 @@
 <ol>
   <% @dealer.hand.each do |card| %>
   <li>
-    <%= card.nil? ? '[X,X]' : card %>
+    <img src="/images/cards/<%= image_name(card) %>" alt="card" />
   </li>
   <% end %>
 </ol>
@@ -18,7 +18,9 @@
 <h3><%= @player.name %>'s Cards</h3>
 <ol>
   <% @player.hand.each do |card| %>
-  <li><%= card %></li>
+  <li>
+    <img src="/images/cards/<%= image_name(card) %>" alt="card" />
+  </li>
   <% end %>
 </ol>
 

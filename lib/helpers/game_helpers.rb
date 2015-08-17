@@ -18,32 +18,17 @@ module GameHelpers
   end
 
   def image_name(card)
-    if card.nil?
-      'cover.jpg'
-    else
-      "#{suit_name(card)}_#{face_name(card)}.jpg"
-    end
+    return 'cover.jpg' if card.nil?
+    "#{suit_name(card)}_#{face_name(card)}.jpg"
   end
 
   def face_name(card)
-    face = card[0].to_i
-    if face == 0
-      face = case face
-        when 'j' then 'jack'
-        when 'q' then 'queen'
-        when 'k' then 'king'
-        when 'a' then 'ace'
-      end
-    end
-    face
+    faces = {j: 'jack', q: 'queen', k: 'king', a: 'ace'}
+    card[0].to_i == 0 ? faces[card[0].to_sym] : card[0].to_i
   end
 
-  def case_name(card)
-    case card[1]
-      when 'c' then 'clubs'
-      when 'd' then 'diamonds'
-      when 'h' then 'hearts'
-      when 's' then 'spaces'
-    end
+  def suit_name(card)
+    suits = {c: 'clubs', d: 'diamonds', h: 'hearts', s: 'spades'}
+    suits[card[1].to_sym]
   end
 end
