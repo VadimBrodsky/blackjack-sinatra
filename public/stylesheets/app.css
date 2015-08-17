@@ -2197,8 +2197,6 @@ button.close { padding: 0; cursor: pointer; background: transparent; border: 0; 
 @media print { .visible-print-inline-block { display: inline-block !important; } }
 
 @media print { .hidden-print { display: none !important; } }
-body { padding-top: 50px; }
-
 .card-container { border: 0; padding: 0; }
 
 .card { border: 1px solid #ddd; border-radius: 9px; padding: 8px; }
