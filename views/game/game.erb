@@ -1,13 +1,19 @@
 <!-- <h1>Blackjack</h1> -->
 
 <h3><%= @dealer.name %>'s Cards</h3>
-<ol>
-  <% @dealer.hand.each do |card| %>
-  <li>
-    <img src="/images/cards/<%= image_name(card) %>" alt="card" />
-  </li>
-  <% end %>
-</ol>
+<% @dealer.hand.each_with_index do |card, index| %>
+<% if (index + 1) % 4 == 1 %>
+<div class="row">
+<% end %>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <div class="thumbnail card-container">
+      <img src="/images/cards/<%= image_name(card) %>" alt="card" class="card <%= card.nil? ? 'card--cover': ''%>" />
+    </div>
+  </div>
+  <% if (index + 1) % 4 == 0 || (index + 1) == @dealer.hand.count %>
+</div>
+<% end %>
+<% end %>
 
 <% if @dealer.playing? %>
 <form class="form-inline" action="/game/dealer" method="post">
@@ -16,13 +22,19 @@
 <% end %>
 
 <h3><%= @player.name %>'s Cards</h3>
-<ol>
-  <% @player.hand.each do |card| %>
-  <li>
-    <img src="/images/cards/<%= image_name(card) %>" alt="card" />
-  </li>
-  <% end %>
-</ol>
+<% @player.hand.each_with_index do |card, index| %>
+<% if (index + 1) % 4 == 1 %>
+<div class="row">
+<% end %>
+  <div class="col-xs-12 col-sm-6 col-md-3">
+    <div class="thumbnail card-container">
+      <img src="/images/cards/<%= image_name(card) %>" alt="card" class="card <%= card.nil? ? 'card--cover': ''%>" />
+    </div>
+  </div>
+  <% if (index + 1) % 4 == 0 || (index + 1) == @player.hand.count %>
+</div>
+<% end %>
+<% end %>
 
 <% if @player.playing? %>
 <div class="panel panel-default">
