@@ -43,12 +43,12 @@ end
 
 post '/game/new' do
   protected!
-  load_game_state
+  @player = load_player
   flash[:error] = "You started a new game, your bet of $#{@player.bet} is forfeit."
   reset_deck!
   reset_player!
-  save_players
-  redirect to('/game/new/')
+  save_player
+  redirect to('/game/bet/new/')
 end
 
 get '/game/?' do
