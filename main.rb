@@ -64,6 +64,7 @@ post '/game/action/stay' do
   @player.stand
   @dealer.open_hand
   save_game_state
+  flash[:success] = 'You have chosen to stay!'
   redirect to('/game')
 end
 
