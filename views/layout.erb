@@ -24,6 +24,12 @@
           </button>
         </form>
 
+        <form class="navbar-form navbar-right" role="reset" action="/game/new" method="post">
+          <button type="submit" class="btn btn-danger">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            Start Over</button>
+        </form>
+
         <a href="/player" class="btn btn-primary navbar-btn navbar-right">
           <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
           <%= @player.name %>
@@ -37,7 +43,7 @@
 
   <div class="container">
     <% if flash[:error] %>
-      <div class="alert alert-error"><%= flash[:error] %></div>
+      <div class="alert alert-danger"><%= flash[:error] %></div>
     <% end %>
     <% if flash[:success] %>
       <div class="alert alert-success"><%= flash[:success] %></div>

@@ -48,4 +48,10 @@ class Player
   def stand
     @status = 'stand'
   end
+
+  def reset!
+    self.bet = DEFAULT_BET
+    self.cards = []
+    @status = 'playing'
+  end
 end

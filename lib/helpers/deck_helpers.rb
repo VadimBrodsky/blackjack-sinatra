@@ -18,4 +18,8 @@ module DeckHelpers
       @deck = Deck.new
     end
   end
+
+  def reset_deck!
+    session[:deck] = nil
+  end
 end
