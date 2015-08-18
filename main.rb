@@ -48,7 +48,7 @@ get '/game/?' do
   erb :'game/game'
 end
 
-post '/game/hit' do
+post '/game/action/hit' do
   protected!
   game_set!
   load_game_state
@@ -57,7 +57,7 @@ post '/game/hit' do
   redirect to('/game')
 end
 
-post '/game/stay' do
+post '/game/action/stay' do
   protected!
   game_set!
   load_game_state
@@ -65,6 +65,9 @@ post '/game/stay' do
   @dealer.open_hand
   save_game_state
   redirect to('/game')
+end
+
+post '/game/action/dealer-card' do
 end
 
 get '/game/bet/new/?' do

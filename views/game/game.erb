@@ -16,7 +16,7 @@
 <% end %>
 
 <% if @dealer.playing? %>
-<form class="form-inline" action="/game/dealer" method="post">
+<form class="form-inline" action="/game/action/dealer-card" method="post">
     <button type="submit" class="btn btn-primary">See Dealer's next card</button>
 </form>
 <% end %>
@@ -42,11 +42,14 @@
     <h3 class="panel-title"><%= @player.name %>, choose an action:</h3>
   </div>
   <div class="panel-body">
-    <form class="form-inline" action="/game/hit" method="post">
+    <p>
+      Total is <%= calculate_total(@player.hand) %>
+    </p>
+    <form class="form-inline" action="/game/action/hit" method="post">
         <button type="submit" class="btn btn-success">Hit</button>
     </form>
 
-    <form class="form-inline" action="/game/stay" method="post">
+    <form class="form-inline" action="/game/action/stay" method="post">
         <button type="submit" class="btn btn-warning">Stay</button>
     </form>
   </div>
