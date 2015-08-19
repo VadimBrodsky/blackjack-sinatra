@@ -1,7 +1,9 @@
-# require_relative 'player'
 require 'json'
+require_relative 'blackjack'
 
 class Dealer
+  include Blackjack
+
   attr_accessor :name, :cards
   attr_reader :status
 
@@ -11,9 +13,20 @@ class Dealer
     @status = 'hide card'
   end
 
-  def hand=(card)
-    @cards << card
-    @cards.flatten!(1)
+  def save_to_session
+    {name: name, hand: cards, status: @status}.to_json
+  end
+
+  def load_from_session(session_json)
+    data = JSON.parse(session_json)
+    self.name = data['name']
+    self.hand = data['hand']
+    @status = data['status']
+    self
+  end
+
+  def hand=(cards)
+    cards.each {|card| @cards << card }
   end
 
   def hand
@@ -34,17 +47,5 @@ class Dealer
 
   def playing?
     @status == 'playing'
-  end
-
-  def save_to_session
-    {name: name, hand: cards, status: @status}.to_json
-  end
-
-  def load_from_session(session_json)
-    data = JSON.parse(session_json)
-    self.name = data['name']
-    self.hand = data['hand']
-    @status = data['status']
-    self
   end
 end

@@ -28,8 +28,40 @@ module PlayerHelpers
     end
   end
 
+  def player_hit
+    unless @player.busted? && @player.blackjack?
+      @player.hand = @deck.deal
+    end
+  end
+
   def reset_player!
     @player.money -= @player.bet
     @player.reset!
+  end
+
+  def check_player_hand
+    if @player.busted?
+      player_busted
+    elsif @player.blackjack?
+      player_blackjack
+    end
+  end
+
+  def player_busted
+    @player.set_busted_status
+    flash[:error] = 'You have busted. Dealer Won!'
+    @dealer.open_hand
+  end
+
+  def player_blackjack
+    @player.set_blackjack_status
+    if @dealer.blackjack?
+      flash[:success] = "It's a Blackjack Tie!"
+      @dealer.set_blackjack_status
+    else
+      flash[:success] = 'Blackjack! You Won.'
+      @dealer.open_hand
+      @dealer.set_lose_status
+    end
   end
 end

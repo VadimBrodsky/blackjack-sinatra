@@ -13,4 +13,10 @@ module DealerHelpers
     session[:dealer] = @dealer.save_to_session
   end
 
+  def dealer_hit
+    if @dealer.hand_value < 17
+      @dealer.hand = @deck.deal
+    end
+  end
+
 end

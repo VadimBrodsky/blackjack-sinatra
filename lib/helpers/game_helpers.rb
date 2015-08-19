@@ -23,6 +23,12 @@ module GameHelpers
     save_deck
   end
 
+  def protected_game_action!
+    protected!
+    game_set!
+    load_game_state
+  end
+
   def save_players
     save_player
     save_dealer
@@ -43,24 +49,4 @@ module GameHelpers
     suits[card[1].to_sym]
   end
 
-  def calculate_total(cards)
-    arr = cards.map {|card| card[0]}
-
-    total = 0
-    arr.each do |a|
-      if a == 'a'
-        total += 11
-      else
-        total += a.to_i == 0 ? 10 : a.to_i
-      end
-    end
-
-    # correct for aces
-    arr.select {|card| card == 'a'}.count.times do
-      break if total <= 21
-      total -= 10
-    end
-
-    total
-  end
 end

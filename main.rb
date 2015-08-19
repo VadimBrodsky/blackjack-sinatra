@@ -36,6 +36,7 @@ get '/game/new/?' do
   # TODO: Encapsulate to Helper
   @player.hand = @deck.deal(2)
   @dealer.hand = @deck.deal(2)
+  check_player_hand
 
   save_game_state
   redirect to('/game')
@@ -52,25 +53,21 @@ post '/game/new' do
 end
 
 get '/game/?' do
-  protected!
-  game_set!
-  load_game_state
+  protected_game_action!
+  check_player_hand
   erb :'game/game'
 end
 
 post '/game/action/hit' do
-  protected!
-  game_set!
-  load_game_state
-  @player.hand = @deck.deal
+  protected_game_action!
+  player_hit
+  check_player_hand
   save_game_state
   redirect to('/game')
 end
 
 post '/game/action/stay' do
-  protected!
-  game_set!
-  load_game_state
+  protected_game_action!
   @player.stand
   @dealer.open_hand
   save_game_state
@@ -79,6 +76,10 @@ post '/game/action/stay' do
 end
 
 post '/game/action/dealer-card' do
+  protected_game_action!
+  dealer_hit
+  save_game_state
+  redirect to('/game')
 end
 
 get '/game/bet/new/?' do

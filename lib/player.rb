@@ -1,6 +1,9 @@
 require 'json'
+require_relative 'blackjack'
 
 class Player
+  include Blackjack
+  
   attr_accessor :name, :money, :bet, :cards
   attr_reader :status
 

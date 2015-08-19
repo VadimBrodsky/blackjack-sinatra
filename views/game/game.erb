@@ -43,7 +43,7 @@
   </div>
   <div class="panel-body">
     <p>
-      Total is <%= calculate_total(@player.hand) %>
+      Total is <%= @player.hand_value %>
     </p>
     <form class="form-inline" action="/game/action/hit" method="post">
         <button type="submit" class="btn btn-success">Hit</button>
