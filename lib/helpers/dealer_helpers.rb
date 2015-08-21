@@ -14,7 +14,7 @@ module DealerHelpers
   end
 
   def dealer_hit
-    if @dealer.can_hit? && @player.standing?
+    if @dealer.can_hit? && @player.standing? && @dealer.hand_value < @player.hand_value
       @dealer.hand = @deck.deal
     else
       @dealer.set_stand_status if @dealer.playing?
