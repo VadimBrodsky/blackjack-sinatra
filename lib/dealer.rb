@@ -7,6 +7,8 @@ class Dealer
   attr_accessor :name, :cards
   attr_reader :status
 
+  HIT_LIMIT = 17
+
   def initialize
     self.name = 'Dealer'
     self.cards = []
@@ -45,7 +47,7 @@ class Dealer
     @status = 'playing'
   end
 
-  def playing?
-    @status == 'playing'
+  def can_hit?
+    hand_value < HIT_LIMIT
   end
 end

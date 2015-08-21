@@ -51,6 +51,7 @@ module PlayerHelpers
     @player.set_busted_status
     flash[:error] = 'You have busted. Dealer Won!'
     @dealer.open_hand
+    @dealer.set_win_status
   end
 
   def player_blackjack

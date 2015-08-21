@@ -55,6 +55,7 @@ end
 get '/game/?' do
   protected_game_action!
   check_player_hand
+  check_dealer_hand
   erb :'game/game'
 end
 
@@ -68,16 +69,17 @@ end
 
 post '/game/action/stay' do
   protected_game_action!
-  @player.stand
+  @player.set_stand_status
   @dealer.open_hand
   save_game_state
-  flash[:success] = 'You have chosen to stay!'
+  flash[:info] = 'You have chosen to stay!'
   redirect to('/game')
 end
 
 post '/game/action/dealer-card' do
   protected_game_action!
   dealer_hit
+  check_dealer_hand
   save_game_state
   redirect to('/game')
 end

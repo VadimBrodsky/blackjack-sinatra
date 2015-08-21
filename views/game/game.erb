@@ -1,6 +1,10 @@
 <!-- <h1>Blackjack</h1> -->
 
-<h3><%= @dealer.name %>'s Cards</h3>
+<h3><%= @dealer.name %>'s Cards
+  <% unless @dealer.hide_card? %>
+  <small>(<%= @dealer.hand_value  %>)</small>
+  <% end %>
+</h3>
 <% @dealer.hand.each_with_index do |card, index| %>
 <% if (index + 1) % 4 == 1 %>
 <div class="row">
@@ -17,11 +21,11 @@
 
 <% if @dealer.playing? %>
 <form class="form-inline" action="/game/action/dealer-card" method="post">
-    <button type="submit" class="btn btn-primary">See Dealer's next card</button>
+    <button type="submit" class="btn btn-primary">See Dealer's next move</button>
 </form>
 <% end %>
 
-<h3><%= @player.name %>'s Cards</h3>
+<h3><%= @player.name %>'s Cards <small>(<%= @player.hand_value %>)</small></h3>
 <% @player.hand.each_with_index do |card, index| %>
 <% if (index + 1) % 4 == 1 %>
 <div class="row">

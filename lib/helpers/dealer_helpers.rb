@@ -14,9 +14,29 @@ module DealerHelpers
   end
 
   def dealer_hit
-    if @dealer.hand_value < 17
+    if @dealer.can_hit? && @player.standing?
       @dealer.hand = @deck.deal
+    else
+      @dealer.set_stand_status if @dealer.playing?
+      flash[:info] = 'Dealer has chosen to stay.'
     end
   end
 
+  def check_dealer_hand
+    if @dealer.busted?
+      dealer_busted
+    elsif @dealer.blackjack?
+      dealer_blackjack
+    end
+  end
+
+  def dealer_busted
+    flash[:error] = 'Dealer has busted. You Won!'
+    @dealer.set_busted_status
+  end
+
+  def dealer_blackjack
+    @dealer.set_blackjack_status
+    flash[:error] = 'Dealer got a Blackjack! You Lose.'
+  end
 end

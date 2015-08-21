@@ -3,7 +3,7 @@ require_relative 'blackjack'
 
 class Player
   include Blackjack
-  
+
   attr_accessor :name, :money, :bet, :cards
   attr_reader :status
 
@@ -42,14 +42,6 @@ class Player
 
   def hand
     @cards
-  end
-
-  def playing?
-    status == 'playing'
-  end
-
-  def stand
-    @status = 'stand'
   end
 
   def reset!

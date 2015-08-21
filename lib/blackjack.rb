@@ -26,16 +26,24 @@ module Blackjack
     calculate_total(cards)
   end
 
+  def playing?
+    status == 'playing'
+  end
+
+  def standing?
+    @status == 'stand'
+  end
+
   def busted?
     hand_value > BLACKJACK
   end
 
-  def set_busted_status
-    @status = 'busted'
-  end
-
   def blackjack?
     hand_value == BLACKJACK
+  end
+
+  def set_busted_status
+    @status = 'busted'
   end
 
   def set_blackjack_status
@@ -44,5 +52,13 @@ module Blackjack
 
   def set_lose_status
     @status = 'lost'
+  end
+
+  def set_stand_status
+    @status = 'stand'
+  end
+
+  def set_win_status
+    @status = 'won'
   end
 end
