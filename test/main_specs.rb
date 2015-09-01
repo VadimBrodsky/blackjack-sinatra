@@ -45,6 +45,15 @@ describe 'Main Application Interactions' do
         redirect_to_player_creation
       end
     end
+
+    describe 'player submits an empty name' do
+      it 'should redirect to player creation' do
+        post '/player', 'player_name' => ' '
+        last_response.status.must_equal 302
+        follow_redirect!
+        last_request.url.must_equal 'http://example.org/player/new'
+      end
+    end
   end
 
   describe 'player is initialized' do

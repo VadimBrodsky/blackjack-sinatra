@@ -117,6 +117,10 @@ end
 
 post '/player' do
   @player = Player.new(name: params[:player_name])
+  if @player.name.strip.empty?
+    flash[:error] = 'Name cannot be blank'
+    redirect to('/player/new')
+  end
   save_player
   redirect to('/player')
 end
