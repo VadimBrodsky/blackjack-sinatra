@@ -32,7 +32,7 @@
 
         <a href="/player" class="btn btn-primary navbar-btn navbar-right">
           <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-          <%= @player.name %>
+          <%= @player.name %>  <span class="badge"><small>$<%= @player.money %></small></span>
         </a>
       <% else %>
         <a href="/game/new" class="btn btn-primary navbar-btn navbar-right">New Game</a>
