@@ -3,7 +3,7 @@
 <%= erb(:'game/_cards', :locals => { player: @dealer }) %>
 
 <% if @dealer.playing? %>
-<form class="form-inline" action="/game/action/dealer-card" method="post">
+<form class="form-inline" action="/game/action/dealer/hit" method="post">
     <button type="submit" class="btn btn-primary">See Dealer's next move</button>
 </form>
 <% end %>
@@ -20,11 +20,11 @@
     <p>
       Total is <%= @player.hand_value %>
     </p>
-    <form class="form-inline" action="/game/action/hit" method="post">
+    <form class="form-inline" action="/game/action/player/hit" method="post">
         <button type="submit" class="btn btn-success">Hit</button>
     </form>
 
-    <form class="form-inline" action="/game/action/stay" method="post">
+    <form class="form-inline" action="/game/action/player/stay" method="post">
         <button type="submit" class="btn btn-warning">Stay</button>
     </form>
   </div>

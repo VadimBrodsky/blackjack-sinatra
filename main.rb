@@ -59,7 +59,7 @@ get '/game/?' do
   erb :'game/game'
 end
 
-post '/game/action/hit' do
+post '/game/action/player/hit' do
   protected_game_action!
   player_hit
   check_player_hand
@@ -67,7 +67,7 @@ post '/game/action/hit' do
   redirect to('/game')
 end
 
-post '/game/action/stay' do
+post '/game/action/player/stay' do
   protected_game_action!
   @player.set_stand_status
   @dealer.open_hand
@@ -76,12 +76,16 @@ post '/game/action/stay' do
   redirect to('/game')
 end
 
-post '/game/action/dealer-card' do
+post '/game/action/dealer/hit' do
   protected_game_action!
   dealer_hit
   check_dealer_hand
   save_game_state
   redirect to('/game')
+end
+
+get '/game/compare/?' do
+  protected_game_action!
 end
 
 get '/game/bet/new/?' do
