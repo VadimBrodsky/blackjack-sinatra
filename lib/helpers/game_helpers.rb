@@ -49,4 +49,23 @@ module GameHelpers
     suits[card[1].to_sym]
   end
 
+
+  def determine_winner
+    if @dealer.hand_value > @player.hand_value
+      flash[:error] = 'Sorry, you lost.'
+      @dealer.set_win_status
+      @player.set_lose_status
+    elsif @dealer.hand_value < @player.hand_value
+      flash[:success] = "Congratulations you won $#{@player.bet * 2}"
+      reward_player(2)
+      @player.set_win_status
+      @dealer.set_lose_status
+    else
+      flash[:info] = "It's a Tie!"
+      return_bet
+      @player.set_lose_status
+      @dealer.set_lose_status
+    end
+  end
+
 end

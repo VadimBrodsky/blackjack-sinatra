@@ -25,18 +25,22 @@ module DealerHelpers
   def check_dealer_hand
     if @dealer.busted?
       dealer_busted
+      redirect to('/game/end')
     elsif @dealer.blackjack?
       dealer_blackjack
+      redirect to('/game/end')
     end
   end
 
   def dealer_busted
     flash[:error] = 'Dealer has busted. You Won!'
     @dealer.set_busted_status
+    reward_player(2)
   end
 
   def dealer_blackjack
     @dealer.set_blackjack_status
     flash[:error] = 'Dealer got a Blackjack! You Lose.'
+    redirect to('/game/end')
   end
 end

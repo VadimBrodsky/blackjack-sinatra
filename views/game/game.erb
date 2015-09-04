@@ -4,7 +4,19 @@
 
 <% if @dealer.playing? %>
 <form class="form-inline" action="/game/action/dealer/hit" method="post">
-    <button type="submit" class="btn btn-primary">See Dealer's next move</button>
+    <button type="submit" class="btn btn-primary">See Dealer's next card</button>
+</form>
+<% end %>
+
+<% if @dealer.standing? && @player.standing? %>
+<form class="form-inline" action="/game/compare" method="post">
+    <button type="submit" class="btn btn-primary">Compare Hands</button>
+</form>
+<% end %>
+
+<% if @start_new_game %>
+<form class="form-inline" action="/game/new" method="post">
+    <button type="submit" class="btn btn-primary">Start New Game</button>
 </form>
 <% end %>
 

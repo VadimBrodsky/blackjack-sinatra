@@ -45,7 +45,6 @@ end
 post '/game/new' do
   protected!
   @player = load_player
-  flash[:error] = "You started a new game, your bet of $#{@player.bet} is forfeit."
   reset_deck!
   reset_player!
   save_player
@@ -84,8 +83,24 @@ post '/game/action/dealer/hit' do
   redirect to('/game')
 end
 
-get '/game/compare/?' do
+post '/game/compare/?' do
   protected_game_action!
+  determine_winner
+  save_game_state
+  redirect to('/game/end')
+end
+
+get '/game/end/?' do
+  protected_game_action!
+  if !@player.playing? && !@dealer.playing?
+    @start_new_game = true
+    reset_player!
+    reset_deck!
+    save_game_state
+    redirect to('/game/bet/new/')
+  else
+    redirect to('/game')
+  end
 end
 
 get '/game/bet/new/?' do
