@@ -68,4 +68,8 @@ module GameHelpers
     end
   end
 
+  def start_new_game
+    @start_new_game = true
+  end
+
 end

@@ -50,10 +50,10 @@ module PlayerHelpers
   def check_player_hand
     if @player.busted?
       player_busted
-      redirect to('/game/end')
+      # redirect to('/game/end')
     elsif @player.blackjack?
       player_blackjack
-      redirect to('/game/end')
+      # redirect to('/game/end')
     end
   end
 
@@ -62,10 +62,12 @@ module PlayerHelpers
     flash[:error] = 'You have busted. Dealer Won!'
     @dealer.open_hand
     @dealer.set_win_status
+    start_new_game
   end
 
   def player_blackjack
     @player.set_blackjack_status
+    start_new_game
     if @dealer.blackjack?
       flash[:success] = "It's a Blackjack Tie!"
       @dealer.set_blackjack_status

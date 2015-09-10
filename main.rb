@@ -87,12 +87,14 @@ post '/game/compare/?' do
   protected_game_action!
   determine_winner
   save_game_state
-  redirect to('/game/end')
+  # redirect to('/game/end')
+  @start_new_game = true
+  erb :'game/game'
 end
 
 get '/game/end/?' do
   protected_game_action!
-  if !@player.playing? && !@dealer.playing?
+  if !@player.playing? || !@dealer.playing?
     @start_new_game = true
     reset_player!
     reset_deck!
