@@ -43,6 +43,10 @@ module DealerHelpers
     @dealer.set_blackjack_status
     start_new_game
     flash[:error] = 'Dealer got a Blackjack! You Lose.'
-    redirect to('/game/end')
+    # redirect to('/game/end')
+  end
+
+  def reset_dealer!
+    @dealer.reset!
   end
 end

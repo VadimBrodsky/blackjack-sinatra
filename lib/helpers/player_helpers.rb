@@ -41,6 +41,7 @@ module PlayerHelpers
 
   def reward_player(multiplier)
     @player.collect_winnings( (@player.bet * multiplier).to_i )
+    @player.bet = 0
   end
 
   def return_bet

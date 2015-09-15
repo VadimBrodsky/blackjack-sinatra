@@ -29,6 +29,7 @@ end
 get '/game/new/?' do
   protected!
   @player = load_player
+  @player.reset_hand!
   @dealer = Dealer.new
   set_bet
   set_deck
@@ -87,21 +88,18 @@ post '/game/compare/?' do
   protected_game_action!
   determine_winner
   save_game_state
-  # redirect to('/game/end')
-  @start_new_game = true
-  erb :'game/game'
+  redirect to('/game/end')
+  # @start_new_game = true
+  # erb :'game/game'
 end
 
 get '/game/end/?' do
   protected_game_action!
   if !@player.playing? || !@dealer.playing?
     @start_new_game = true
-    reset_player!
-    reset_deck!
-    save_game_state
-    redirect to('/game/bet/new/')
+    erb :'game/game'
   else
-    redirect to('/game')
+    redirect to('/game/bet/new')
   end
 end
 

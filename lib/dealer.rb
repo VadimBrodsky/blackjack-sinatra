@@ -50,4 +50,8 @@ class Dealer
   def can_hit?
     hand_value < HIT_LIMIT
   end
+
+  def reset!
+    @status = 'hide card'
+  end
 end

@@ -53,6 +53,10 @@ class Player
     @status = 'playing'
   end
 
+  def reset_hand!
+    self.cards = []
+  end
+
   def collect_winnings(bet)
     self.money += bet
   end
