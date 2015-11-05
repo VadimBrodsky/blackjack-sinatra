@@ -16,7 +16,7 @@ class Dealer
   end
 
   def save_to_session
-    {name: name, hand: cards, status: @status}.to_json
+    { name: name, hand: cards, status: @status }.to_json
   end
 
   def load_from_session(session_json)
@@ -28,12 +28,12 @@ class Dealer
   end
 
   def hand=(cards)
-    cards.each {|card| @cards << card }
+    cards.each { |card| @cards << card }
   end
 
   def hand
     if hide_card?
-      @cards.map.with_index { |c,i| i == 0 ? nil : c }
+      @cards.map.with_index { |c, i| i == 0 ? nil : c }
     else
       @cards
     end

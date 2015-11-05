@@ -6,7 +6,7 @@ class Deck
           'j' => 10, 'q' => 10, 'k' => 10, 'a' => [1, 11] }
   SUITS = { 's' => 'spades', 'h' => 'hearts', 'd' => 'diamonds', 'c' => 'clubs' }
 
-  def initialize(data=nil)
+  def initialize( data=nil )
     if data.nil?
       self.cards = CARDS.keys.product(SUITS.keys).shuffle
     else

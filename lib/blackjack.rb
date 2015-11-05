@@ -2,7 +2,7 @@ module Blackjack
   BLACKJACK = 21
 
   def calculate_total(cards)
-    arr = cards.map {|card| card[0]}
+    arr = cards.map { |card| card[0] }
 
     total = 0
     arr.each do |a|
@@ -14,7 +14,7 @@ module Blackjack
     end
 
     # correct for aces
-    arr.select {|card| card == 'a'}.count.times do
+    arr.select { |card| card == 'a' }.count.times do
       break if total <= 21
       total -= 10
     end
