@@ -4,7 +4,6 @@ ruby '2.2.2'
 gem 'sinatra'
 gem 'sinatra-flash'
 gem 'thin'
-gem 'pry'
 
 group :test do
   gem 'minitest'
@@ -15,4 +14,5 @@ group :develpment do
   gem 'compass'
   gem 'rake'
   gem 'rubocop'
+  gem 'pry'
 end
